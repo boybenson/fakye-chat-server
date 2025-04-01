@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"fakye-chat-server/services"
+	"fakye-server/services"
 	"net/http"
 )
 
