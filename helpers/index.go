@@ -20,7 +20,6 @@ func GenerateAuthToken (phone string) (string, error){
 		return "", err
 	}
 
-
 	return signedToken, nil
 
 }
