@@ -25,6 +25,8 @@ require (
 	github.com/go-openapi/validate v0.24.0 // indirect
 	github.com/go-swagger/go-swagger v0.31.0 // indirect
 	github.com/go-viper/mapstructure/v2 v2.2.1 // indirect
+	github.com/golang-jwt/jwt v3.2.2+incompatible
+	github.com/golang-jwt/jwt/v5 v5.2.2 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/handlers v1.5.2 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect

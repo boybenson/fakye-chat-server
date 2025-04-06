@@ -24,6 +24,7 @@ func main() {
 	fmt.Println("App is running on port", port)
 
 	http.HandleFunc("/register", controllers.RegisterHandler(db))
+	http.HandleFunc("/signin", controllers.SignInHandler(db))
 
 	if err := http.ListenAndServe(port, nil); err != nil {
 		log.Fatal(err)
