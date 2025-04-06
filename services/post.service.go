@@ -9,7 +9,18 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
+func updateName(x *string){
+	*x = "Yeboah"
+}
+
 func GetPosts (db *pgxpool.Pool) ([]models.Post, error){
+
+	name := "Benson"
+
+	updateName(&name)
+
+	println(name)
+
 
 	rows, err := db.Query(context.Background(), `SELECT * FROM post`)
 
@@ -36,4 +47,8 @@ func GetPosts (db *pgxpool.Pool) ([]models.Post, error){
 	}
 
 	return posts, nil
+}
+
+func CreatePost (db *pgxpool.Pool) bool{
+	return true
 }

@@ -20,3 +20,4 @@ func GetPostsHandler(db *pgxpool.Pool) http.HandlerFunc {
 		json.NewEncoder(w).Encode(posts)
 	}
 }
+

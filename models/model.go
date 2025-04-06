@@ -1,0 +1,25 @@
+package models
+
+import "time"
+
+type User struct {
+	ID uint `gorm:"primaryKey"`
+	Name string
+	Phone string
+	CreatedAt time.Time
+	UpdatedAt time.Time
+}
+
+type Post struct {
+	ID           uint      `gorm:"primaryKey" json:"id"`
+	Name         string    `json:"name"`
+	Description  string    `json:"description"`
+	UserID       uint      `json:"userId"`  
+	Media        string    `gorm:"type:json" json:"media"` 
+	CreatedAt    time.Time `json:"createdAt"`
+	UpdatedAt    time.Time `json:"updatedAt"`
+	PostType     string    `json:"postType"`
+	ShowLocation bool      `json:"showLocation"`
+	Latitude     string    `json:"latitude"`
+	Longitude    string    `json:"longitude"`
+}
