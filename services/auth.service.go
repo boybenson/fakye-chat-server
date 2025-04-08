@@ -10,7 +10,6 @@ import (
 )
 
 
-
 func Register(payload types.RegisterRequest, db *gorm.DB)(*models.User, error) {
 	user := models.User{Name: payload.Name, Phone: payload.Phone}
 
@@ -40,22 +39,28 @@ func SignIn (payload types.SignInRequest, db *gorm.DB)(*types.UserWithToken, err
 
 	if userExists.Error != nil {
 		return nil, fmt.Errorf("incorrect phone number %s", payload.Phone)
-	} else {
-		token,_:= helpers.GenerateAuthToken(existingUser.Phone)
-		response := &types.UserWithToken{
-			User:  existingUser,
-			Token: token,
-		}
-
+		} else {
 		otpCode := helpers.GenerateOtpCode()
+		var updatedUser models.User
 
 		result := db.Model(&models.User{}).Where("phone = ?", payload.Phone).Update("auth_otp", otpCode)
+
+		db.Where("phone = ?", payload.Phone).First(&updatedUser)
+		token,_:= helpers.GenerateAuthToken(updatedUser.Phone)
 
 		if result.Error != nil {
 			return nil, result.Error
 		}
 
-		println(otpCode)
+
+		response := &types.UserWithToken{
+			User:  updatedUser,
+			Token: token,
+		}
+
+		message := fmt.Sprintf("Hello %v, Kindly use the OTP code %s to verify your phone number. Share freely and brighten someone's day with https://benevoghana.com", existingUser.Name, otpCode)
+
+		go DispatchSms(message, payload.Phone)
 
 		return response, nil
 	}
