@@ -1,6 +1,8 @@
 package helpers
 
 import (
+	"fmt"
+	"math/rand"
 	"time"
 
 	"github.com/golang-jwt/jwt"
@@ -19,7 +21,15 @@ func GenerateAuthToken (phone string) (string, error){
 	if err != nil {
 		return "", err
 	}
-
 	return signedToken, nil
+}
 
+
+func GenerateOtpCode () string{
+rand.Seed(time.Now().UnixNano())
+
+otp := rand.Intn(9000) + 1000 
+
+
+return fmt.Sprintf("%d", otp)
 }

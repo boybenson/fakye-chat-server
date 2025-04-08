@@ -8,6 +8,7 @@ type User struct {
 	Phone string
 	CreatedAt time.Time
 	UpdatedAt time.Time
+	AuthOtp string
 }
 
 type Post struct {

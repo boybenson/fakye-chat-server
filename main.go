@@ -17,6 +17,7 @@ func main() {
  
 	db, err := database.ConnectDB()
 
+
 	if err != nil {
 		log.Fatal("Unable to connect to the database", err)
 	}

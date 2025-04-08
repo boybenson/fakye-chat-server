@@ -24,6 +24,11 @@ func Register(payload types.RegisterRequest, db *gorm.DB)(*models.User, error) {
 		if result.Error != nil {
 			return nil, result.Error
 		}
+
+		message := fmt.Sprintf("Hello %v, Welcome to Benevo. Share freely and brighten someone's day with https://benevoghana.com", payload.Name)
+		
+		go DispatchSms(message, payload.Phone)
+
 		return &user, nil
 	}
 
@@ -41,6 +46,16 @@ func SignIn (payload types.SignInRequest, db *gorm.DB)(*types.UserWithToken, err
 			User:  existingUser,
 			Token: token,
 		}
+
+		otpCode := helpers.GenerateOtpCode()
+
+		result := db.Model(&models.User{}).Where("phone = ?", payload.Phone).Update("auth_otp", otpCode)
+
+		if result.Error != nil {
+			return nil, result.Error
+		}
+
+		println(otpCode)
 
 		return response, nil
 	}
