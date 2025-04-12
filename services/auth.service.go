@@ -65,3 +65,19 @@ func SignIn (payload types.SignInRequest, db *gorm.DB)(*types.UserWithToken, err
 		return response, nil
 	}
 }
+
+func VerifyOtp(payload types.VerifyOtpRequest, db *gorm.DB)(bool,error){
+	var existingUser models.User
+	userExists := db.Where("phone = ?", payload.Phone).First(&existingUser)
+
+	if userExists.Error != nil {
+		return false, fmt.Errorf("incorrect phone number %s", payload.Phone)
+	}else {
+
+		if existingUser.AuthOtp != payload.Otp {
+			return false, fmt.Errorf("incorrect Otp Code %s", payload.Otp)
+		}
+		return true, nil
+
+	}
+}
