@@ -7,7 +7,6 @@ type RegisterRequest struct {
 	Name    string `json:"name"`
 }
 
-
 type SignInRequest struct{
 	Phone string `json:"phone"`
 }
@@ -22,8 +21,18 @@ type UserWithToken struct {
 	Token string `json:"token"`
 }
 
-
 type ErrorResponse struct {
 	Error   string `json:"error"`
 	Message string `json:"message"`
+}
+
+type CreatePostRequest struct {
+	Name         string   `json:"name"`
+	Description  string   `json:"description"`
+	Type         string   `json:"type"`
+	UserID       uint   `json:"userId"`
+	Media        []string `json:"media"`
+	ShowLocation bool     `json:"showLocation"`
+	Latitude     string   `json:"latitude"`
+	Longitude    string   `json:"longitude"`
 }

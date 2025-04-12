@@ -11,6 +11,7 @@ import (
 
 
 func Register(payload types.RegisterRequest, db *gorm.DB)(*models.User, error) {
+
 	user := models.User{Name: payload.Name, Phone: payload.Phone}
 
 	var existingUser models.User

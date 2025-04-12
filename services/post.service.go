@@ -3,10 +3,12 @@ package services
 import (
 	"context"
 	"fakye-server/models"
+	"fakye-server/types"
 	"fmt"
 	"log"
 
 	"github.com/jackc/pgx/v5/pgxpool"
+	"gorm.io/gorm"
 )
 
 
@@ -41,6 +43,13 @@ func GetPosts (db *pgxpool.Pool) ([]models.Post, error){
 	return posts, nil
 }
 
-func CreatePost (db *pgxpool.Pool) bool{
-	return true
+func CreatePost (payload types.CreatePostRequest, db *gorm.DB) (bool, error){
+	post := models.Post{Latitude: payload.Latitude, Longitude:payload.Longitude,  Media: payload.Media, Name: payload.Name, Description: payload.Description, PostType: payload.Type, UserID: payload.UserID, ShowLocation: payload.ShowLocation}
+	result := db.Create(&post)
+
+	if result.Error != nil {
+		return false, result.Error
+	}
+	
+	return true, nil
 }

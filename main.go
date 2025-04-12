@@ -27,6 +27,7 @@ func main() {
 	http.HandleFunc("/register", controllers.RegisterHandler(db))
 	http.HandleFunc("/signin", controllers.SignInHandler(db))
 	http.HandleFunc("/verify-otp", controllers.VerifyOtp(db))
+	http.HandleFunc("/create-post", controllers.CreatePostHandler(db))
 
 	if err := http.ListenAndServe(port, nil); err != nil {
 		log.Fatal(err)

@@ -16,7 +16,7 @@ type Post struct {
 	Name         string    `json:"name"`
 	Description  string    `json:"description"`
 	UserID       uint      `json:"userId"`  
-	Media        string    `gorm:"type:json" json:"media"` 
+	Media        []string    `gorm:"type:json" json:"media"` 
 	CreatedAt    time.Time `json:"createdAt"`
 	UpdatedAt    time.Time `json:"updatedAt"`
 	PostType     string    `json:"postType"`

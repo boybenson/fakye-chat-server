@@ -3,21 +3,39 @@ package controllers
 import (
 	"encoding/json"
 	"fakye-server/services"
+	"fakye-server/types"
 	"net/http"
 
-	"github.com/jackc/pgx/v5/pgxpool"
+	"gorm.io/gorm"
 )
 
-func GetPostsHandler(db *pgxpool.Pool) http.HandlerFunc {
+
+
+
+func CreatePostHandler (db *gorm.DB)http.HandlerFunc{
 	return func(w http.ResponseWriter, r *http.Request) {
-		posts, err := services.GetPosts(db)
-		if err != nil {
-			http.Error(w, "Failed to fetch posts", http.StatusInternalServerError)
+		if r.Method != http.MethodPost {
+			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 			return
 		}
+		var body types.CreatePostRequest
+		print(r.Body)
+		err := json.NewDecoder(r.Body).Decode(&body)
 
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(posts)
+
+
+		if err != nil {
+			http.Error(w, "Invalid request body", http.StatusBadRequest)
+			return
+		}
+		
+		result, error := services.CreatePost(body, db)
+		if(error != nil){
+			http.Error(w, error.Error(), http.StatusBadRequest)
+			return
+		}
+		w.WriteHeader(http.StatusCreated)
+		json.NewEncoder(w).Encode(result) 
+
 	}
 }
-
