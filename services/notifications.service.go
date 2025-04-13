@@ -38,6 +38,7 @@ func DispatchSms (message string, recipient string)(bool, error){
 	body, _ := io.ReadAll(resp.Body)
 
 	fmt.Println("Response Status:", resp.Status)
+
 	fmt.Println("Response Body:", string(body))
 
 	return true, nil
