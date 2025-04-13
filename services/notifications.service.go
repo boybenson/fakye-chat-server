@@ -12,7 +12,7 @@ import (
 func DispatchSms (message string, recipient string)(bool, error){
 	url := os.Getenv("ARKESEL_URL")
 
-	payload := map[string]interface{}{"sender": "Benevo GH", "message": message, "recipients": []string{recipient}}
+	payload := map[string]any{"sender": "Benevo GH", "message": message, "recipients": []string{recipient}}
 
 	jsonData, err := json.Marshal(payload)
 
