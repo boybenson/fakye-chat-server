@@ -1,8 +1,7 @@
 package main
 
 import (
-	"fakye-server/controllers"
-	"fakye-server/database"
+	"fakye-server/routes"
 	"fmt"
 	"log"
 	"net/http"
@@ -15,22 +14,14 @@ func main() {
 	godotenv.Load()
 	port := ":9000"
  
-	db, err := database.ConnectDB()
 
-
-	if err != nil {
-		log.Fatal("Unable to connect to the database", err)
-	}
+	mux, _ := routes.RootRouter()
 
 	fmt.Println("App is running on port", port)
 
-	http.HandleFunc("/register", controllers.RegisterHandler(db))
-	http.HandleFunc("/signin", controllers.SignInHandler(db))
-	http.HandleFunc("/verify-otp", controllers.VerifyOtp(db))
-	http.HandleFunc("/create-post", controllers.CreatePostHandler(db))
+	err := http.ListenAndServe(port, mux)
 
-	if err := http.ListenAndServe(port, nil); err != nil {
+	if err != nil {
 		log.Fatal(err)
 	}
-	
 }
