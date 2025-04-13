@@ -1,7 +1,10 @@
 package models
 
-import "time"
+import (
+	"time"
 
+	"gorm.io/datatypes"
+)
 type User struct {
 	ID uint `gorm:"primaryKey"`
 	Name string
@@ -16,7 +19,7 @@ type Post struct {
 	Name         string    `json:"name"`
 	Description  string    `json:"description"`
 	UserID       uint      `json:"userId"`  
-	Media        []string    `gorm:"type:json" json:"media"` 
+	Media        datatypes.JSON `gorm:"type:jsonb" json:"media"`
 	CreatedAt    time.Time `json:"createdAt"`
 	UpdatedAt    time.Time `json:"updatedAt"`
 	PostType     string    `json:"postType"`

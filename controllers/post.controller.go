@@ -19,10 +19,7 @@ func CreatePostHandler (db *gorm.DB)http.HandlerFunc{
 			return
 		}
 		var body types.CreatePostRequest
-		print(r.Body)
 		err := json.NewDecoder(r.Body).Decode(&body)
-
-
 
 		if err != nil {
 			http.Error(w, "Invalid request body", http.StatusBadRequest)
@@ -34,6 +31,26 @@ func CreatePostHandler (db *gorm.DB)http.HandlerFunc{
 			http.Error(w, error.Error(), http.StatusBadRequest)
 			return
 		}
+		w.WriteHeader(http.StatusCreated)
+		json.NewEncoder(w).Encode(result) 
+
+	}
+}
+
+func GetPostsHandler (db *gorm.DB)http.HandlerFunc{
+	return func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodGet {
+			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+			return
+		}
+
+		result, error := services.GetPosts(db)
+
+		if(error != nil){
+			http.Error(w, error.Error(), http.StatusBadRequest)
+			return
+		}
+		
 		w.WriteHeader(http.StatusCreated)
 		json.NewEncoder(w).Encode(result) 
 

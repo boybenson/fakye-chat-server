@@ -20,6 +20,7 @@ func RootRouter ()(*http.ServeMux, error){
 	mux.HandleFunc("/signin", controllers.SignInHandler(db))
 	mux.HandleFunc("/verify-otp", controllers.VerifyOtp(db))
 	mux.HandleFunc("/create-post", controllers.CreatePostHandler(db))
+	mux.HandleFunc("/get-posts", controllers.GetPostsHandler(db))
 
 	return mux, nil
 }
