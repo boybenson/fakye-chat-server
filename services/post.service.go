@@ -1,11 +1,10 @@
 package services
 
 import (
-	"encoding/json"
+	"fakye-server/helpers"
 	"fakye-server/models"
 	"fakye-server/types"
 
-	"gorm.io/datatypes"
 	"gorm.io/gorm"
 )
 
@@ -13,28 +12,35 @@ import (
 
 
 func CreatePost(payload types.CreatePostRequest, db *gorm.DB) (bool, error) {
-	mediaJSON, err := json.Marshal(payload.Media)
-	if err != nil {
-		return false, err
-	}
 
-	post := models.Post{
-		Latitude:      payload.Latitude,
-		Longitude:     payload.Longitude,
-		Name:          payload.Name,
-		Description:   payload.Description,
-		PostType:      payload.Type,
-		UserID:        payload.UserID,
-		ShowLocation:  payload.ShowLocation,
-		Media:         datatypes.JSON(mediaJSON),
-	}
-	result := db.Create(&post)
+	isClean := helpers.ModerateTexts(payload.Description)
 
-	if result.Error != nil {
-		return false, result.Error
-	}
+	println(isClean)
 
 	return true, nil
+
+	// mediaJSON, err := json.Marshal(payload.Media)
+	// if err != nil {
+	// 	return false, err
+	// }
+
+	// post := models.Post{
+	// 	Latitude:      payload.Latitude,
+	// 	Longitude:     payload.Longitude,
+	// 	Name:          payload.Name,
+	// 	Description:   payload.Description,
+	// 	PostType:      payload.Type,
+	// 	UserID:        payload.UserID,
+	// 	ShowLocation:  payload.ShowLocation,
+	// 	Media:         datatypes.JSON(mediaJSON),
+	// }
+	// result := db.Create(&post)
+
+	// if result.Error != nil {
+	// 	return false, result.Error
+	// }
+
+	// return true, nil
 }
 
 func GetPosts(db *gorm.DB)([]models.Post, error){

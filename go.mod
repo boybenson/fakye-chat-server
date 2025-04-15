@@ -2,7 +2,7 @@ module fakye-server
 
 go 1.23.3
 
-require github.com/jackc/pgx/v5 v5.7.4
+require github.com/jackc/pgx/v5 v5.7.4 // indirect
 
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect

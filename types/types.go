@@ -36,3 +36,8 @@ type CreatePostRequest struct {
 	Latitude     string   `json:"latitude"`
 	Longitude    string   `json:"longitude"`
 }
+
+type ModerationRequest struct {
+	Model string `json:"model"`
+	Input string `json:"input"`
+}
