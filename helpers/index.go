@@ -40,13 +40,13 @@ otp := rand.Intn(9000) + 1000
 return fmt.Sprintf("%d", otp)
 }
 
-func ModerateTexts (text string) bool{
+func ModerateTexts (text string) any {
 	apiKey := os.Getenv("OPENAI_API_KEY")
 
 	 openAIEndpoint := "https://api.openai.com/v1/moderations"
 
 	reqBody := types.ModerationRequest{
-		Model: "text-moderation-latest", 
+		Model: "omni-moderation-latest", 
 		Input: text,
 	}
 
@@ -76,8 +76,5 @@ func ModerateTexts (text string) bool{
 
 	body, _ := io.ReadAll(resp.Body)
 
-	fmt.Println("Moderation Response:")
-	fmt.Println(string(body))
-	
-	return true
+	return body
 }

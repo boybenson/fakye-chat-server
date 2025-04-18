@@ -12,6 +12,8 @@ func RootRouter ()(*http.ServeMux, error){
 	mux := http.NewServeMux()
 
 
+
+
 	if err != nil {
 		log.Fatal("Unable to connect to the database", err)
 	}

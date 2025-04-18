@@ -13,9 +13,12 @@ import (
 func main() {
 	godotenv.Load()
 	port := ":9000"
- 
+
+
 
 	mux, _ := routes.RootRouter()
+
+	
 
 	fmt.Println("App is running on port", port)
 

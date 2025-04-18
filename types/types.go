@@ -37,6 +37,12 @@ type CreatePostRequest struct {
 	Longitude    string   `json:"longitude"`
 }
 
+type CreateCommentRequest struct {
+	Message  string   `json:"message"`
+	User     uint   `json:"user"`
+	Post     uint   `json:"post"`
+}
+
 type ModerationRequest struct {
 	Model string `json:"model"`
 	Input string `json:"input"`

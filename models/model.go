@@ -27,3 +27,12 @@ type Post struct {
 	Latitude     string    `json:"latitude"`
 	Longitude    string    `json:"longitude"`
 }
+
+type Comment struct {
+	ID uint `gorm:"primaryKey" json:"id"`
+	Message string `json:"message"`
+	User       uint      `json:"user"`  
+	Post       uint      `json:"post"`  
+	CreatedAt    time.Time `json:"createdAt"`
+	UpdatedAt    time.Time `json:"updatedAt"`
+}

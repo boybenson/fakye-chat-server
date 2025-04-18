@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"fakye-server/migrations"
 	"fakye-server/services"
 	"fakye-server/types"
 	"net/http"
@@ -44,6 +45,9 @@ func SignInHandler(db *gorm.DB) http.HandlerFunc {
 		}
 		var body types.SignInRequest
 		err := json.NewDecoder(r.Body).Decode(&body)
+
+		migrations.RunDbMigrations(db)
+
 
 		if err != nil {
 			http.Error(w, "Invalid request body", http.StatusBadRequest)
