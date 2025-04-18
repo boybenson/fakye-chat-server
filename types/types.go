@@ -47,3 +47,7 @@ type ModerationRequest struct {
 	Model string `json:"model"`
 	Input string `json:"input"`
 }
+
+type GetBookmarksFilter struct {
+	UserID uint   `json:"userId"`
+}

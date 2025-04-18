@@ -24,5 +24,10 @@ func RootRouter ()(*http.ServeMux, error){
 	mux.HandleFunc("/create-post", controllers.CreatePostHandler(db))
 	mux.HandleFunc("/get-posts", controllers.GetPostsHandler(db))
 
+
+
+	// Bookmarks
+	mux.HandleFunc("/get-bookmarks", controllers.GetBookmarksHandler(db))
+
 	return mux, nil
 }

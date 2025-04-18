@@ -36,3 +36,9 @@ type Comment struct {
 	CreatedAt    time.Time `json:"createdAt"`
 	UpdatedAt    time.Time `json:"updatedAt"`
 }
+
+type Bookmark struct {
+	ID uint `gorm:"primaryKey" json:"id"`
+	User       uint      `json:"user"`  
+	Post       uint      `json:"post"`  
+}
