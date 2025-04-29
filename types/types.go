@@ -43,11 +43,17 @@ type CreateCommentRequest struct {
 	Post     uint   `json:"post"`
 }
 
+type GetBookmarksFilter struct {
+	UserID uint   `json:"userId"`
+}
+
 type ModerationRequest struct {
 	Model string `json:"model"`
 	Input string `json:"input"`
 }
 
-type GetBookmarksFilter struct {
+type ToggleBookMarkRequest struct {
 	UserID uint   `json:"userId"`
+	PostID uint 	`json:"postId"`
 }
+

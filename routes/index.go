@@ -3,6 +3,7 @@ package routes
 import (
 	"fakye-server/controllers"
 	"fakye-server/database"
+	"fakye-server/migrations"
 	"log"
 	"net/http"
 )
@@ -11,7 +12,11 @@ func RootRouter ()(*http.ServeMux, error){
 	db, err := database.ConnectDB()
 	mux := http.NewServeMux()
 
+	migrateErr := migrations.RunDbMigrations(db)
 
+	if migrateErr != nil {
+		log.Fatal("error migrating")
+	}
 
 
 	if err != nil {
@@ -28,6 +33,7 @@ func RootRouter ()(*http.ServeMux, error){
 
 	// Bookmarks
 	mux.HandleFunc("/get-bookmarks", controllers.GetBookmarksHandler(db))
+	mux.HandleFunc("/toggle-bookmark", controllers.ToggleBookMark(db))
 
 	return mux, nil
 }
