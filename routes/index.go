@@ -3,7 +3,6 @@ package routes
 import (
 	"fakye-server/controllers"
 	"fakye-server/database"
-	"fakye-server/migrations"
 	"log"
 	"net/http"
 )
@@ -12,12 +11,7 @@ func RootRouter ()(*http.ServeMux, error){
 	db, err := database.ConnectDB()
 	mux := http.NewServeMux()
 
-	migrateErr := migrations.RunDbMigrations(db)
-
-	if migrateErr != nil {
-		log.Fatal("error migrating")
-	}
-
+	
 
 	if err != nil {
 		log.Fatal("Unable to connect to the database", err)
