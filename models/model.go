@@ -38,7 +38,7 @@ type Comment struct {
 }
 
 type Bookmark struct {
-	ID uint `gorm:"primaryKey" json:"id"`
-	User       uint      `json:"user"`  
-	Post       uint      `json:"post"`  
+	ID    uint `gorm:"primaryKey" json:"id"`
+	User  uint `gorm:"column:user" json:"user"`
+	Post  uint `gorm:"column:post" json:"post"`
 }

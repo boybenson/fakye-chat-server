@@ -56,4 +56,8 @@ type ToggleBookMarkRequest struct {
 	UserID uint   `json:"userId"`
 	PostID uint 	`json:"postId"`
 }
+type IsBookMarkRequest struct {
+	UserID uint   `json:"userId"`
+	PostID uint 	`json:"postId"`
+}
 
