@@ -38,13 +38,25 @@ func CreatePost(payload types.CreatePostRequest, db *gorm.DB) (bool, error) {
 	return true, nil
 }
 
-func GetPosts(db *gorm.DB)([]models.Post, error){
-	var posts []models.Post
-	result := db.Find(&posts)
+func GetPosts(db *gorm.DB) ([]struct {
+    models.Post
+    CommentsCount int64 `json:"commentsCount"`
+}, error) {
+    var posts []struct {
+        models.Post
+        CommentsCount int64 `json:"commentsCount"`
+    }
 
-	if result.Error != nil {
-		return nil, result.Error
-	}
+    result := db.Model(&models.Post{}).
+        Select("posts.*, COUNT(comments.id) as comments_count").
+        Joins("LEFT JOIN comments ON comments.post = posts.id").
+        Group("posts.id").
+        Order("posts.created_at desc").
+        Scan(&posts)
 
-	return posts, nil
+    if result.Error != nil {
+        return nil, result.Error
+    }
+
+    return posts, nil
 }

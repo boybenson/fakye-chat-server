@@ -28,6 +28,11 @@ func RootRouter ()(*http.ServeMux, error){
 	// Bookmarks
 	mux.HandleFunc("/get-bookmarks", controllers.GetBookmarksHandler(db))
 	mux.HandleFunc("/toggle-bookmark", controllers.ToggleBookMark(db))
+	mux.HandleFunc("/is-post-bookmarked", controllers.IsPostBookmarkedHandler(db))
+
+	// Comments
+	mux.HandleFunc("/create-comment", controllers.CreateCommentHandler(db))
+	mux.HandleFunc("/get-comments", controllers.GetCommentsHandler(db))
 
 	return mux, nil
 }

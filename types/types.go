@@ -39,8 +39,8 @@ type CreatePostRequest struct {
 
 type CreateCommentRequest struct {
 	Message  string   `json:"message"`
-	User     uint   `json:"user"`
-	Post     uint   `json:"post"`
+	User     uint   `json:"userId"`
+	Post     uint   `json:"postId"`
 }
 
 type GetBookmarksFilter struct {
