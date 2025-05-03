@@ -34,5 +34,8 @@ func RootRouter ()(*http.ServeMux, error){
 	mux.HandleFunc("/create-comment", controllers.CreateCommentHandler(db))
 	mux.HandleFunc("/get-comments", controllers.GetCommentsHandler(db))
 
+	//Websocket
+	mux.HandleFunc("/websocket", controllers.HandleSocket)
+
 	return mux, nil
 }
