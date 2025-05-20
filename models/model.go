@@ -42,3 +42,9 @@ type Bookmark struct {
 	User  uint `gorm:"column:user" json:"user"`
 	Post  uint `gorm:"column:post" json:"post"`
 }
+
+type Like struct {
+	ID    uint `gorm:"primaryKey" json:"id"`
+	User  uint `gorm:"column:user" json:"user"`
+	Post  uint `gorm:"column:post" json:"post"`
+}
