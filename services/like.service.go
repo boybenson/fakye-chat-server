@@ -36,3 +36,17 @@ func ToggleLike(db *gorm.DB, payload types.ToggleLikeRequest) (bool, error) {
 
 	return true, nil
 }
+
+func IsPostLiked(payload types.IsPostLiked, db *gorm.DB) (bool, error) {
+    var like models.Like
+    result := db.Where(`"user" = ? AND "post" = ?`, payload.UserID, payload.PostID).First(&like)
+    
+    if result.Error != nil {
+        if errors.Is(result.Error, gorm.ErrRecordNotFound) {
+            return false, nil 
+        }
+        return false, result.Error 
+    }
+    
+    return true, nil 
+}

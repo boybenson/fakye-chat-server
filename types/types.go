@@ -66,4 +66,10 @@ type IsBookMarkRequest struct {
 	UserID uint   `json:"userId"`
 	PostID uint 	`json:"postId"`
 }
+type IsPostLiked struct {
+	UserID uint   `json:"userId"`
+	PostID uint 	`json:"postId"`
+}
+
+
 
